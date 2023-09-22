@@ -8,7 +8,7 @@ function capturar () {
         this.precioTotal = precioTotal;
         this.ahorro = ahorro;
 
-    };
+    }; 
 
     //Captura los datos para los nuevos artículos
     const nombreCapturar = document.getElementById('nombreArtículo').value;
