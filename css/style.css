@@ -1,0 +1,19 @@
+.cantidad * {
+    display: inline;
+}
+
+#totalCantidad {
+    text-align: center;
+}
+
+form .d-flex {
+    width: 175px;
+}
+
+.tituloBusqueda {
+    font-size: 40px;
+}
+
+#campoBusqueda {
+    width: 20%;
+} 

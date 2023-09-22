@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <!-- Inicio Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> 
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <a class="navbar-brand" href="#">Listas de Compras</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Histórico</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Fin Navbar -->
+
+    <!-- Inicio Lista de Compras -->
+    <h2>Lista de Compras</h2>
+    <h4><input type="date" name="fechaCompra" id=""></h4>
+    <h4><select name="Mercado" id="nombreMercado">
+        <option value="libertad">Disco</option>
+        <option value="libertad">Libertad</option>
+        <option value="libertad">Makro</option>                        
+    </select></h4>
+
+    <!-- Inicio Nuevo Producto -->
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio en <select name="Mercado" id="nombreMercado">
+                        <option value="libertad">Disco</option>
+                        <option value="libertad">Libertad</option>
+                        <option value="libertad">Makro</option>                        
+                    </select></th>
+                    <th scope="col">Precio en <select name="Mercado" id="nombreMercado">
+                        <option value="libertad">Disco</option>
+                        <option value="libertad">Libertad</option>
+                        <option value="libertad">Makro</option>                        
+                    </select></th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio Total</th>
+                    <th scope="col">Ahorro</th>
+                    
+                </tr>
+                
+            </thead>
+            <tbody id="listaCompras">
+                <tr>
+                    <th scope="row"></th>
+                    <td><input id="nombreArtículo" type="text" value=""></td>
+                    <td><input id="precioArtículo1" type="number" class="precioProducto1" value=""></td>
+                    <td><input id="precioArtículo2" type="number" class="precioProducto2" value=""></td>                    
+                    <td class="cantidad">
+                        <input type="button" value="-" class="button-" onclick="disminuirCantidad(this)">
+                        <p id="cantidad" class="cantidad" value="">0</p>
+                        <input type="button" value="+" class="button+" onclick="aumentarCantidad(this)">
+                    </td>
+                    <td id="precioTotal" class="precioTotal" value="">0.00</td>
+                    <td id="ahorro" class="ahorro" value="">0.00</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th id="totalCantidad" value="">0</th>
+                    <th id="totalPrecioTotal" value="">0.00</th>
+                    <th id="totalAhorro" value="">0.00</th>
+                </tr>
+            </tfoot>
+        
+        </table>
+        <button onclick="capturar()">Agregar Artículo</button>
+    </div>
+
+    <!-- Fin Nuevo Producto -->
+    <div class="form-group">
+        <label for="campoBusqueda" class="tituloBusqueda">Buscar Producto:</label>
+        <input type="text" class="form-control" id="campoBusqueda" placeholder="Ingrese el nombre del producto" onkeyup="filtrarProductos()">
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio en <select name="Mercado" id="nombreMercado">
+                        <option value="libertad">Disco</option>
+                        <option value="libertad">Libertad</option>
+                        <option value="libertad">Makro</option>                        
+                    </select></th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio Total</th>
+                    <th scope="col">Ahorro</th>
+                    
+                </tr>
+                
+            </thead>
+            <tbody id="listaProductos">
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th id="numProducto" value=""></th>
+                    <th></th>
+                    <th>Totales</th>
+                    <th id="totalCantidadFinal">0</th>
+                    <th id="totalPrecioTotalFinal">0.00</th>
+                    <th id="totalAhorroFinal">0.00</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- Fin Lista de Compras -->
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="./js/app.js"></script>
+
+</body>
+
+
+</html>
