@@ -85,7 +85,7 @@
                         <input type="button" value="+" class="button+" onclick="aumentarCantidad(this)">
                     </td>
                     <td id="precioTotal" class="precioTotal" value="">0.00</td>
-                    <td id="ahorro" class="ahorro" value="">0.00</td>
+                    <td id="ahorro" type="number" class="ahorro" value="">0.00</td>
                 </tr>
             </tbody>
             <tfoot>
@@ -98,10 +98,13 @@
                     <th id="totalPrecioTotal" value="">0.00</th>
                     <th id="totalAhorro" value="">0.00</th>
                 </tr>
-            </tfoot>
-        
+            </tfoot>        
         </table>
-        <button onclick="capturar()">Agregar Artículo</button>
+        <button onclick="capturar()">Agregar Artículo</button>            
+    </div>
+    <div>
+        <span id="mensajeProdAgregado" class="alert alert-success"></span>
+        <span id="mensajeProdEliminado" class="alert alert-danger"></span>    
     </div>
 
     <!-- Fin Nuevo Producto -->
@@ -139,7 +142,13 @@
                     <th id="totalAhorroFinal">0.00</th>
                 </tr>
             </tfoot>
-        </table>
+        </table>        
+        <button onclick="insertarLista ()">Pre-Cargar Artículos en LocalStorage</button>
+        <br>
+        <button id="cargarListaAnterior">Cargar Lista Anterior</button>
+        <br>
+        <button onclick="limpiarLocalStorage()">Limpiar lista</button>
+        <span id="mensajeListaVaciada" class="alert alert-warning"></span>
     </div>
     <!-- Fin Lista de Compras -->
 
