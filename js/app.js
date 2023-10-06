@@ -177,7 +177,7 @@ function actualizarNumerosProductos() {
     numerosProductos.forEach((numero, index) => {
         numero.textContent = index + 1;
     });
-}
+} 
 
 function actualizarTodo() {
     actualizarTotales();
