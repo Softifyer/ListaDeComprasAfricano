@@ -1,3 +1,19 @@
+.datosCompra {
+    display: flex;
+    align-items: center;
+    font-size: 10pt;
+}
+
+.datosCompra input, .datosCompra select {
+    margin-left: 20px;
+    font-size: 10pt;
+}
+
+.datosCompra p {
+    margin-bottom: 0px;
+    margin-left: 20px;
+}
+
 .cantidad * {
     display: inline;
 }

@@ -386,3 +386,9 @@ const listaArticulosManuales = [
 function insertarLista () {
     localStorage.setItem('listaArticulos', JSON.stringify(listaArticulosManuales));
 }
+
+function lugarCompra() {
+    const lugarCompra = document.getElementById('nombreMercado').value;
+    const mercadoSelected = document.getElementById('mercadoSelected');
+    mercadoSelected.textContent = `Precio en ${lugarCompra}`;
+}
