@@ -65,3 +65,26 @@ form .d-flex {
     left: 100px;
     max-height: 60px;
 }
+
+.encabezados {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.encabezados article, .datos article {
+    margin-left: 150px;
+}
+
+.datos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+
+#tasaDolar, #tasaDolarOficial {
+    font-weight: bold;
+}

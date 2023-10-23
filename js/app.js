@@ -2,6 +2,30 @@
 let listaArticulos = [];
 let numeroNuevoProducto = 1;
 
+fetch('https://dolarapi.com/v1/dolares')
+    .then(response => response.json())
+    .then(data => {
+        dolarOficial = data[0].venta;
+        dolarBlue = data[1].venta;
+
+        // Ahora puedes utilizar dolarOficial y dolarBlue en tu aplicación
+        console.log('Dólar Oficial: ' + dolarOficial.toFixed(2));
+        console.log('Dólar Blue: ' + dolarBlue.toFixed(2));
+
+        document.getElementById('tasaDolar').textContent = '$' + dolarBlue.toFixed(2);
+        document.getElementById('tasaDolarOficial').textContent = '$' + dolarOficial.toFixed(2);
+
+        // Actualiza el contenido del elemento con el valor del dólar blue
+        actualizarPrecioTotalDolares();
+
+        // Llama a la función para actualizar el total en dólares
+        actualizarPrecioTotalDolares();
+    })
+    .catch(error => {
+        console.error('Error al obtener datos de la API: ' + error);
+    });
+
+
 document.getElementById('cargarListaAnterior').addEventListener('click', function() {
     cargarListaAnterior();
 });
@@ -39,6 +63,8 @@ function actualizarInterfaz(listaArticulos) {
         <td>${producto.cantidad}</td>
         <td>${producto.precioTotal}</td>
         <td class="ahorroProducto">${producto.ahorro}</td>
+        <td class="ahorroProducto">US$${producto.dolar}</td>
+        <td class="ahorroProducto">US$${producto.dolarOficial}</td>
         <td><button onclick="eliminarFilaProducto(this)">Eliminar</button></td>
     `;
 
@@ -49,13 +75,8 @@ function actualizarInterfaz(listaArticulos) {
     blanquearTotales();
 }
 
-document.querySelector('button[onclick="capturar()"]').addEventListener('click', function() {
-    console.log('Botón "Agregar Artículo" clickeado');
-    capturar();
-});
-
 function capturar() {
-    function Articulo(nombre, precio1, precio2, cantidad, precioTotal, ahorro) {
+    function Articulo(nombre, precio1, precio2, cantidad, precioTotal, ahorro, dolar, dolarOficial) {
         this.numero = listaArticulos.length + 1; 
         this.nombre = nombre;
         this.precio1 = parseFloat(precio1);
@@ -63,33 +84,31 @@ function capturar() {
         this.cantidad = parseInt(cantidad);
         this.precioTotal = precioTotal;
         this.ahorro = ahorro;
+        this.dolar = dolar;
+        this.dolarOficial = dolarOficial;
     }
 
     const nombreCapturar = document.getElementById('nombreArtículo').value;
-    const precio1Capturar = document.getElementById('precioArtículo1').value;
-    const precio2Capturar = document.getElementById('precioArtículo2').value;
-    const cantidadCapturar = document.getElementById('cantidad').textContent;
-    const precioTotalCapturar = document.getElementById('precioTotal').textContent;
-    const ahorroCapturar = document.getElementById('ahorro').textContent;
+            const precio1Capturar = document.getElementById('precioArtículo1').value;
+            const precio2Capturar = document.getElementById('precioArtículo2').value;
+            const cantidadCapturar = document.getElementById('cantidad').textContent;
+            const precioTotalCapturar = document.getElementById('precioTotal').textContent;
+            const ahorroCapturar = document.getElementById('ahorro').textContent;
+            const precioTotalSinSimbolo = parseFloat(precioTotalCapturar.replace('$', ''));
+            const precioProductoDolar = (precioTotalSinSimbolo / dolarBlue).toFixed(2);
+            const precioProductoDolarOficial = (precioTotalSinSimbolo / dolarOficial).toFixed(2);
 
-    const nuevoArticulo = new Articulo(nombreCapturar, precio1Capturar, precio2Capturar, cantidadCapturar, precioTotalCapturar, ahorroCapturar);
+            const nuevoArticulo = new Articulo(nombreCapturar, precio1Capturar, precio2Capturar, cantidadCapturar, precioTotalCapturar, ahorroCapturar, precioProductoDolar, precioProductoDolarOficial);
 
-    agregarArticulo(nuevoArticulo);
+            agregarArticulo(nuevoArticulo);
 
-    document.getElementById('nombreArtículo').value = '';
-    document.getElementById('precioArtículo1').value = '';
-    document.getElementById('precioArtículo2').value = '';
-    document.getElementById('cantidad').textContent = '0';
-    document.getElementById('precioTotal').textContent = '0.00';
-    document.getElementById('ahorro').textContent = '0.00';
+            const mensaje = document.getElementById('mensajeProdAgregado');
+            mensaje.textContent = 'Agregado';
+            mensaje.style.display = 'block';
 
-    const mensaje = document.getElementById('mensajeProdAgregado');
-    mensaje.textContent = 'Agregado';
-    mensaje.style.display = 'block';
-
-    setTimeout(function () {
-        mensaje.style.display = 'none';
-    }, 3000);
+            setTimeout(function () {
+                mensaje.style.display = 'none';
+            }, 3000);
 }
 
 
@@ -122,6 +141,8 @@ function agregarArticulo(nuevoArticulo) {
             <td>${cantidadCapturar}</td>
             <td>$${precioTotalCapturar}</td>
             <td class="ahorroProducto">$${ahorroCapturar.toFixed(2)}</td>
+            <td class="precioTotalDolaresProducto">US$${(precioTotalCapturar/dolarBlue).toFixed(2)}</td>
+            <td class="precioTotalDolarOficialProducto">US$${(precioTotalCapturar/dolarOficial).toFixed(2)}</td>
             <td><button onclick="eliminarFilaProducto(this)">Eliminar</button></td>
         `;
 
@@ -232,10 +253,22 @@ function aumentarCantidad(button) {
     let cantidad = parseInt(cantidadElement.textContent);
     cantidad++;
     cantidadElement.textContent = cantidad;
+
+    // Actualizar precio total y ahorro
     actualizarPrecioTotal(fila);
     actualizarAhorro(fila);
     actualizarTotales();
-};
+
+     // Calcular y actualizar el precio en dólares
+     const precioTotal = parseFloat(fila.querySelector('.precioTotal').textContent.replace('$', ''));
+     const precioDolaresCell = fila.querySelector('.precioDolar');
+     const precioDolares = calcularPrecioDolares(precioTotal, dolarBlue);
+     precioDolaresCell.textContent = 'US$' + precioDolares;
+
+     const precioDolarOficialCell = fila.querySelector('.precioDolarOficial');
+     const precioDolarOficial = calcularPrecioDolarOficial(precioTotal, dolarOficial);
+     precioDolarOficialCell.textContent = 'US$' + precioDolarOficial;
+}
 
 function disminuirCantidad(button) {
     const fila = button.closest('tr');
@@ -254,6 +287,10 @@ function blanquearTotales() {
     document.getElementById('totalCantidad').textContent = 0;
     document.getElementById('totalPrecioTotal').textContent = "0.00";
     document.getElementById('totalAhorro').textContent = "0.00";
+    document.getElementById('totalPrecioDolares').textContent = "0.00";
+    document.getElementById('precioDolares').textContent = "0.00";
+    document.getElementById('totalPrecioDolarOficial').textContent = "0.00";
+    document.getElementById('precioDolarOficial').textContent = "0.00";
 }
 
 function actualizarTotales() {
@@ -284,6 +321,8 @@ function actualizarTotales() {
     document.getElementById('totalCantidad').textContent = totalCantidad;
     document.getElementById('totalPrecioTotal').textContent = '$' + totalPrecioTotal.toFixed(2); 
     document.getElementById('totalAhorro').textContent = '$' + totalAhorro.toFixed(2); 
+    document.getElementById('totalPrecioDolares').textContent = 'US$' + (totalPrecioTotal/dolarBlue).toFixed(2); 
+    document.getElementById('totalPrecioDolarOficial').textContent = 'US$' + (totalPrecioTotal/dolarOficial).toFixed(2); 
 };
 
 function actualizarTotalesProductos() {
@@ -294,8 +333,8 @@ function actualizarTotalesProductos() {
 
     filasProductos.forEach(fila => {
         const cantidadProducto = parseInt(fila.querySelector('td:nth-child(4)').textContent);
-        const precioTotalProducto = parseFloat(fila.querySelector('td:nth-child(5)').textContent.replace('$', '')); 
-        const ahorroProducto = parseFloat(fila.querySelector('td:nth-child(6)').textContent.replace('$', '')); 
+        const precioTotalProducto = parseFloat(fila.querySelector('td:nth-child(5)').textContent.replace('$', ''));
+        const ahorroProducto = parseFloat(fila.querySelector('td:nth-child(6)').textContent.replace('$', ''));
 
         if (!isNaN(cantidadProducto)) {
             totalCantidadProductos += cantidadProducto;
@@ -310,11 +349,23 @@ function actualizarTotalesProductos() {
         }
     });
 
-    // Actualizar los valores en la fila de totales de listaProductos
+    // Actualiza los valores en la fila de totales de listaProductos
     document.getElementById('totalCantidadFinal').textContent = totalCantidadProductos;
     document.getElementById('totalPrecioTotalFinal').textContent = `$${totalPrecioTotalProductos.toFixed(2)}`;
     document.getElementById('totalAhorroFinal').textContent = `$${totalAhorroProductos.toFixed(2)}`;
-};
+    document.getElementById('totalPrecioDolarFinal').textContent = 'US$' + (totalPrecioTotalProductos / dolarBlue).toFixed(2);
+    
+    // Actualiza el valor en el elemento con id "totalPrecioDolarOficial"
+    document.getElementById('totalPrecioDolarOficial').textContent = 'US$' + (totalPrecioTotalProductos / dolarOficial).toFixed(2);
+
+    const totalPrecioDolarOficial = document.getElementById('totalPrecioDolarOficial');
+    if (totalPrecioDolarOficial) {
+        totalPrecioDolarOficial.textContent = 'US$' + (totalPrecioTotalProductos / dolarOficial).toFixed(2);
+    } else {
+        console.log("Elemento 'totalPrecioDolarOficial' no encontrado en el DOM.");
+    }
+
+}
 
 
 function filtrarProductos() {
@@ -390,5 +441,38 @@ function insertarLista () {
 function lugarCompra() {
     const lugarCompra = document.getElementById('nombreMercado').value;
     const mercadoSelected = document.getElementById('mercadoSelected');
+    const mercadoSelected2 = document.getElementById('mercadoSelected2');
     mercadoSelected.textContent = `Precio en ${lugarCompra}`;
+    mercadoSelected2.textContent = `Precio en ${lugarCompra}`;
 }
+
+function calcularPrecioDolares(precioTotal, dolarBlue) {
+    const precioEnDolares = (precioTotal / dolarBlue).toFixed(2);
+    return precioEnDolares;
+}
+
+function calcularPrecioDolarOficial(precioTotal, dolarOficial) {
+    const precioEnDolarOficial = (precioTotal / dolarOficial).toFixed(2);
+    return precioEnDolarOficial;
+}
+
+function actualizarPrecioTotalDolares() {
+    const filasProductos = document.querySelectorAll('#listaProductos tr');
+    let totalPrecioDolares = 0;
+    let totalPrecioDolarOficial = 0;
+
+    filasProductos.forEach(fila => {
+        const precioTotal = parseFloat(fila.querySelector('td:nth-child(5)').textContent.replace('$', ''));
+        const precioDolares = precioTotal / dolarBlue;
+        const precioDolarOficial = precioTotal / dolarOficial;
+        totalPrecioDolares += precioDolares;
+        totalPrecioDolarOficial += precioDolarOficial;
+    });
+
+    // Actualiza el valor en el th con id "totalPrecioDolares"
+    const totalPrecioDolaresTh = document.getElementById('totalPrecioDolares');
+    const totalPrecioDolarOficialTh = document.getElementById('totalPrecioDolarOficial');
+    totalPrecioDolaresTh.textContent = '' + totalPrecioDolares.toFixed(2);
+    totalPrecioDolarOficialTh.textContent = '' + totalPrecioDolarOficial.toFixed(2);
+}
+

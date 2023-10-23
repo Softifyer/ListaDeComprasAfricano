@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <!-- Inicio Navbar -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <a class="navbar-brand" href="#">OfertList</a>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Histórico</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Fin Navbar -->
+
+        <!-- Inicio Lista de Compras -->
+        <div class="conteiner">
+            <h1>OfertList</h1>
+            <span class="datosCompra">
+                <p>Fecha de Compra:</p>
+                <h4><input type="date" name="fechaCompra" id=""></h4>
+                <p>Lugar de la Compra:</p>
+                <h4><select name="selectMercado" id="nombreMercado" onchange="lugarCompra()">
+                        <option textContent="Disco">Disco</option>
+                        <option value="Libertad">Libertad</option>
+                        <option value="Makro">Makro</option>
+                    </select></h4>
+            </span>
+            <span>
+
+            </span>
+
+        </div>
+
+        <!-- Inicio Nuevo Producto -->
+
+        <section class="nuevoProducto">
+            <article class="cargarProducto">
+                <div class="encabezados">
+                    <article>Producto</article>
+                    <article id="mercadoSelected">Precio en</article>
+                    <article>Precio a comparar</article>
+                    <article>Cantidad</article>
+                    <article>Precio Total</article>
+                    <article>Ahorro</article>
+                </div>
+                <div class="listaCompras">
+                    <article class="item datos">
+                        <article><input id="nombreArtículo" type="text" value=""></article>
+                        <article><input id="precioArtículo1" type="number" class="precioProducto1" value=""></article>
+                        <article><input id="precioArtículo2" type="number" class="precioProducto2" value=""></article>
+                        <article class="cantidad"><button class="button-" onclick="disminuirCantidad(this)">-</button>
+                            <span id="cantidad" class="cantidad" value="">0</span>
+                            <button class="button+" onclick="aumentarCantidad(this)">+</button>
+                        </article>
+                        <span id="precioTotal" class="precioTotal" value="">0.00</span>
+                        <span id="ahorro" class="ahorro" value="">0.00</span>
+                    </article>
+
+            </article>
+    </div>
+    <article class="footer">
+        <article>Total</article>
+        <article></article>
+        <article></article>
+        <article></article>
+        <article id="totalCantidad" value="">0</article>
+        <article id="totalPrecioTotal" value="">0.00</article>
+        <article id="totalAhorro" value="">0.00</article>
+    </article>
+
+    </article>
+    <button onclick="capturar()">Agregar Artículo</button>
+    <div>
+        <span id="mensajeProdAgregado" class="alert alert-success"></span>
+        <span id="mensajeProdEliminado" class="alert alert-danger"></span>
+    </div>
+    </section>
+
+
+    <!-- Fin Lista de Compras -->
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <script src="./js/app.js"></script>
+
+</body>
+
+
+</html>

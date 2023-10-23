@@ -51,7 +51,9 @@
                 <option textContent="Disco">Disco</option>
                 <option value="Libertad">Libertad</option>
                 <option value="Makro">Makro</option>                      
-            </select></h4>    
+            </select></h4>
+            <p>Tasa Dolar Blue: <span id="tasaDolar" value=""></span></p>    
+            <p>Tasa Dolar Oficial: <span id="tasaDolarOficial" value=""></span></p>    
         </span>
         <span >
             
@@ -62,7 +64,7 @@
     <!-- Inicio Nuevo Producto -->
 
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-responsive">
             <thead id="headerTitles">
                 <tr>
                     <th scope="col">#</th>
@@ -72,9 +74,9 @@
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio Total</th>
                     <th scope="col">Ahorro</th>
-                    
-                </tr>
-                
+                    <th scope="col">Precio al US$ Blue</th>
+                    <th scope="col">Precio al US$ Oficial</th>
+                </tr>                
             </thead>
             <tbody id="listaCompras">
                 <tr>
@@ -89,6 +91,8 @@
                     </td>
                     <td id="precioTotal" class="precioTotal" value="">0.00</td>
                     <td id="ahorro" type="number" class="ahorro" value="">0.00</td>
+                    <td id="precioDolares" type="number" class="precioDolar" value="">0.00</td>
+                    <td id="precioDolarOficial" type="number" class="precioDolarOficial" value="">0.00</td>
                 </tr>
             </tbody>
             <tfoot>
@@ -100,6 +104,8 @@
                     <th id="totalCantidad" value="">0</th>
                     <th id="totalPrecioTotal" value="">0.00</th>
                     <th id="totalAhorro" value="">0.00</th>
+                    <th id="totalPrecioDolares" value="">0.00</th>
+                    <th id="totalPrecioDolarOficial" value="">0.00</th>
                 </tr>
             </tfoot>        
         </table>
@@ -121,15 +127,12 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Producto</th>
-                    <th scope="col">Precio en <select name="Mercado" id="nombreMercado">
-                        <option value="libertad">Disco</option>
-                        <option value="libertad">Libertad</option>
-                        <option value="libertad">Makro</option>                        
-                    </select></th>
+                    <th id="mercadoSelected2" scope="col">Precio en </th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Precio Total</th>
                     <th scope="col">Ahorro</th>
-                    
+                    <th scope="col">Precio al US$ Blue</th>
+                    <th scope="col">Precio al US$ Oficial</th>
                 </tr>
                 
             </thead>
@@ -143,6 +146,8 @@
                     <th id="totalCantidadFinal">0</th>
                     <th id="totalPrecioTotalFinal">0.00</th>
                     <th id="totalAhorroFinal">0.00</th>
+                    <th id="totalPrecioDolarFinal">0.00</th>
+                    <th id="totalPrecioDolarOficial">0.00</th>
                 </tr>
             </tfoot>
         </table>         
