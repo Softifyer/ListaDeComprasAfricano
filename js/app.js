@@ -165,7 +165,7 @@ function agregarArticulo(nuevoArticulo) {
 
     const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: 'center',
         showConfirmButton: false,
         timer: 1200,
         timerProgressBar: true,
@@ -201,7 +201,7 @@ function eliminarFilaProducto(button) {
 
     const Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: 'center',
         showConfirmButton: false,
         timer: 1200,
         timerProgressBar: true,
@@ -494,4 +494,3 @@ function actualizarPrecioTotalDolares() {
     totalPrecioDolaresTh.textContent = '' + totalPrecioDolares.toFixed(2);
     totalPrecioDolarOficialFinalTh.textContent = 'US$' + (totalPrecioDolarOficialFinal / dolarOficial).toFixed(2);
 }
-
