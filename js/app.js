@@ -403,53 +403,49 @@ function filtrarProductos() {
 
 function limpiarLocalStorage() {
     localStorage.removeItem('listaArticulos');
-    const mensaje = document.getElementById('mensajeListaVaciada');
-    mensaje.textContent = 'Lista Vaciada';
-    mensaje.style.display = 'block';
-
     listaArticulos = [];    
     actualizarInterfaz(listaArticulos);
-    setTimeout(function () {
-        mensaje.style.display = 'none';
-    }, 3000);
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'center', 
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'warning',
+        title: 'Has vaciado la lista de productos'
+      })
 }
 
 const listaArticulosManuales = [
     {
         "numero": 1,
-        "nombre": "Carne",
-        "precio1": 980,
-        "precio2": 500,
-        "cantidad": 3,
-        "precioTotal": "$1500.00",
-        "ahorro": "$1440.00"
+        "nombre": "Arroz",
+        "precio1": 1234,
+        "precio2": 1235,
+        "cantidad": 4,
+        "precioTotal": "$4936.00",
+        "ahorro": "$4.00",
+        "dolar": "4.11",
+        "dolarOficial": "13.39"
     },
     {
         "numero": 2,
-        "nombre": "Leche",
-        "precio1": 120,
-        "precio2": 130,
-        "cantidad": 2,
-        "precioTotal": "$240.00",
-        "ahorro": "$20.00"
-    },
-    {
-        "numero": 3,
-        "nombre": "Pan",
-        "precio1": 50,
-        "precio2": 60,
-        "cantidad": 5,
-        "precioTotal": "$250.00",
-        "ahorro": "$50.00"
-    },
-    {
-        "numero": 4,
-        "nombre": "Manzanas",
-        "precio1": 80,
-        "precio2": 75,
-        "cantidad": 4,
-        "precioTotal": "$320.00",
-        "ahorro": "$20.00"
+        "nombre": "Fideos",
+        "precio1": 9876,
+        "precio2": 9875,
+        "cantidad": 3,
+        "precioTotal": "$29625.00",
+        "ahorro": "$3.00",
+        "dolar": "24.69",
+        "dolarOficial": "80.37"
     }
 ];
 
@@ -493,4 +489,80 @@ function actualizarPrecioTotalDolares() {
     const totalPrecioDolarOficialFinalTh = document.getElementById('totalPrecioDolarOficialFinal');
     totalPrecioDolaresTh.textContent = '' + totalPrecioDolares.toFixed(2);
     totalPrecioDolarOficialFinalTh.textContent = 'US$' + (totalPrecioDolarOficialFinal / dolarOficial).toFixed(2);
+}
+
+function exportarAExcel() {
+    const nombreArchivo = 'Lista de Articulos.xlsx';
+    const datos = [];
+    const encabezados = ["#", "Nombre", "Cantidad", "Precio Total", "Ahorro", "Precio al US$ Blue", "Precio al US$ Oficial"];
+    
+    // Agregar los encabezados al arreglo de datos
+    datos.push(encabezados);
+
+    // Agregar los datos de listaArticulos al arreglo de datos
+    listaArticulos.forEach((articulo) => {
+        const fila = [
+            articulo.numero,
+            articulo.nombre,
+            articulo.cantidad,
+            articulo.precioTotal,
+            articulo.ahorro,
+            'US$' + articulo.dolar,
+            'US$' + articulo.dolarOficial,
+        ];
+        datos.push(fila);
+    });
+
+    // Crear un libro de trabajo y una hoja de cálculo
+    const libro = XLSX.utils.book_new();
+    const hoja = XLSX.utils.aoa_to_sheet(datos);
+
+    // Crear un estilo para los encabezados
+    const estiloEncabezado = {
+        fill: {
+            fgColor: { rgb: "95B3D7" },
+        },
+        font: {
+            bold: true,
+            color: { rgb: "000000" },
+        },
+        border: {
+            top: { style: "thin", color: { auto: 1 } },
+            bottom: { style: "thin", color: { auto: 1 } },
+            left: { style: "thin", color: { auto: 1 } },
+            right: { style: "thin", color: { auto: 1 } },
+        },
+    };
+
+    // Aplicar el estilo de encabezado a las celdas de encabezado
+    for (let i = 0; i < encabezados.length; i++) {
+        const letraColumna = String.fromCharCode(65 + i); // Convierte el índice en letra (A, B, C, ...)
+        hoja[letraColumna + '1'].s = estiloEncabezado;
+    }
+
+    // Agregar la hoja de cálculo al libro de trabajo
+    XLSX.utils.book_append_sheet(libro, hoja, "ListaArticulos");
+
+    // Guardar el archivo Excel
+    XLSX.writeFile(libro, nombreArchivo);
+}
+
+function exportarACSV() {
+    const nombreArchivo = 'ListaDeArticulos.csv';
+
+    // Crear una cadena con los datos en formato CSV
+    let csv = 'Número,Nombre,Cantidad,Precio Total,Ahorro,Precio al US$ Blue,Precio al US$ Oficial\n';
+
+    listaArticulos.forEach((articulo) => {
+        csv += `${articulo.numero},"${articulo.nombre}",${articulo.cantidad},${articulo.precioTotal},${articulo.ahorro},"${articulo.dolar}","${articulo.dolarOficial}"\n`;
+    });
+
+    // Crear un enlace de descarga
+    const enlace = document.createElement('a');
+    enlace.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    enlace.target = '_blank';
+    enlace.download = nombreArchivo;
+
+    // Simular un clic en el enlace para iniciar la descarga
+    enlace.click();
 }
