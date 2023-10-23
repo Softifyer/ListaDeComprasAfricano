@@ -201,7 +201,7 @@ function eliminarFilaProducto(button) {
 
     const Toast = Swal.mixin({
         toast: true,
-        position: 'center',
+        position: 'center', 
         showConfirmButton: false,
         timer: 1200,
         timerProgressBar: true,
