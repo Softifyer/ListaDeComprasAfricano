@@ -121,16 +121,9 @@ form .d-flex {
 
     .datosCompra input,
     .datosCompra select {
-        margin: 10px 0;
+        margin: 20px 0;
     }
 
-    .btn {
-        display: block;
-    }
-
-    input .btn {
-        padding: 5px;
-    }
 
     #campoBusqueda {
         width: 100%;

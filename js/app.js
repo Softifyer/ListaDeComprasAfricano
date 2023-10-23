@@ -65,7 +65,7 @@ function actualizarInterfaz(listaArticulos) {
         <td class="ahorroProducto">${producto.ahorro}</td>
         <td class="ahorroProducto">US$${producto.dolar}</td>
         <td class="ahorroProducto">US$${producto.dolarOficial}</td>
-        <td><button onclick="eliminarFilaProducto(this)" class="btn btn-danger">Eliminar</button></td>
+        <td><button class="btn btn-danger" onclick="eliminarFilaProducto(this)">Eliminar</button></td>
     `;
 
         listaProductos.appendChild(fila);
@@ -143,7 +143,7 @@ function agregarArticulo(nuevoArticulo) {
             <td class="ahorroProducto">$${ahorroCapturar.toFixed(2)}</td>
             <td class="precioTotalDolaresProducto">US$${(precioTotalCapturar/dolarBlue).toFixed(2)}</td>
             <td class="precioTotalDolarOficialProducto">US$${(precioTotalCapturar/dolarOficial).toFixed(2)}</td>
-            <td><button onclick="eliminarFilaProducto(this)" class="btn btn-danger">Eliminar</button></td>
+            <td><button class="btn btn-danger" onclick="eliminarFilaProducto(this)">Eliminar</button></td>
         `;
 
         listaProductos.appendChild(fila);
