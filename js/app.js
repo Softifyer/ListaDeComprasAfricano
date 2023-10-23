@@ -162,6 +162,23 @@ function agregarArticulo(nuevoArticulo) {
     } else {
         console.log('Error: Los valores ingresados no son válidos.');
     }
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1200,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'success',
+        title: 'Producto agregado'
+      })
 }    
 
 function eliminarFilaProducto(button) {
@@ -182,14 +199,22 @@ function eliminarFilaProducto(button) {
     actualizarTotalesProductos();
     actualizarInterfaz(listaArticulos);
 
-    // Muestra el mensaje de eliminación
-    const mensaje = document.getElementById('mensajeProdEliminado');
-    mensaje.textContent = 'Eliminado';
-    mensaje.style.display = 'block';
-
-    setTimeout(function () {
-        mensaje.style.display = 'none';
-    }, 3000);
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1200,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+      
+      Toast.fire({
+        icon: 'error',
+        title: 'Producto eliminado'
+      })
 }
 
 function actualizarNumerosProductos() {
@@ -356,14 +381,8 @@ function actualizarTotalesProductos() {
     document.getElementById('totalPrecioDolarFinal').textContent = 'US$' + (totalPrecioTotalProductos / dolarBlue).toFixed(2);
     
     // Actualiza el valor en el elemento con id "totalPrecioDolarOficial"
-    document.getElementById('totalPrecioDolarOficial').textContent = 'US$' + (totalPrecioTotalProductos / dolarOficial).toFixed(2);
+    document.getElementById('totalPrecioDolarOficialFinal').textContent = 'US$' + (totalPrecioTotalProductos / dolarOficial).toFixed(2);
 
-    const totalPrecioDolarOficial = document.getElementById('totalPrecioDolarOficial');
-    if (totalPrecioDolarOficial) {
-        totalPrecioDolarOficial.textContent = 'US$' + (totalPrecioTotalProductos / dolarOficial).toFixed(2);
-    } else {
-        console.log("Elemento 'totalPrecioDolarOficial' no encontrado en el DOM.");
-    }
 
 }
 
@@ -459,20 +478,20 @@ function calcularPrecioDolarOficial(precioTotal, dolarOficial) {
 function actualizarPrecioTotalDolares() {
     const filasProductos = document.querySelectorAll('#listaProductos tr');
     let totalPrecioDolares = 0;
-    let totalPrecioDolarOficial = 0;
+    let totalPrecioDolarOficialFinal = 0;
 
     filasProductos.forEach(fila => {
         const precioTotal = parseFloat(fila.querySelector('td:nth-child(5)').textContent.replace('$', ''));
         const precioDolares = precioTotal / dolarBlue;
         const precioDolarOficial = precioTotal / dolarOficial;
         totalPrecioDolares += precioDolares;
-        totalPrecioDolarOficial += precioDolarOficial;
+        totalPrecioDolarOficialFinal += precioDolarOficial;
     });
 
     // Actualiza el valor en el th con id "totalPrecioDolares"
     const totalPrecioDolaresTh = document.getElementById('totalPrecioDolares');
-    const totalPrecioDolarOficialTh = document.getElementById('totalPrecioDolarOficial');
+    const totalPrecioDolarOficialFinalTh = document.getElementById('totalPrecioDolarOficialFinal');
     totalPrecioDolaresTh.textContent = '' + totalPrecioDolares.toFixed(2);
-    totalPrecioDolarOficialTh.textContent = '' + totalPrecioDolarOficial.toFixed(2);
+    totalPrecioDolarOficialFinalTh.textContent = 'US$' + (totalPrecioDolarOficialFinal / dolarOficial).toFixed(2);
 }
 
