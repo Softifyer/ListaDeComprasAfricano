@@ -1,7 +1,20 @@
+/* Estilos base que se aplicarán a pantallas grandes */
 .datosCompra {
     display: flex;
     align-items: center;
     font-size: 10pt;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.datosCompra {
+    display: flex;
+    align-items: center;
+    font-size: 10pt;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .datosCompra input, .datosCompra select {
@@ -87,4 +100,39 @@ form .d-flex {
 
 #tasaDolar, #tasaDolarOficial {
     font-weight: bold;
+}
+
+#fechaDeCompra {
+    max-width: 150px;
+}
+
+#listaCompras, .datosCompra {
+    vertical-align: middle;
+}
+
+.app {
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .datosCompra {
+        flex-direction: column;
+    }
+
+    .datosCompra input,
+    .datosCompra select {
+        margin: 10px 0;
+    }
+
+    .btn {
+        display: block;
+    }
+
+    input .btn {
+        padding: 5px;
+    }
+
+    #campoBusqueda {
+        width: 100%;
+    }
 }

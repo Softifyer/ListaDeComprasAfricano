@@ -18,137 +18,141 @@
 
 <body>
 
-    <div class="container-fluid">
+    <div class="container-fluid app">
         <!-- Inicio Navbar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button> 
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <a class="navbar-brand" href="#">OfertList</a>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <a class="navbar-brand" href="#">OfertList</a>
+                </div>
             </div>
+        </nav>
+        <!-- Fin Navbar -->
+
+        <!-- Inicio Lista de Compras -->
+        <div class="conteiner-fluid">
+            <h1>OferList</h1>
+            <span class="datosCompra">
+                <p>Fecha de Compra:</p>
+                <input type="date" name="fechaCompra" id="fechaDeCompra" value="" class="form-control">
+                <p>Lugar de la Compra:</p>
+                <h4><select name="selectMercado" id="nombreMercado" onchange="lugarCompra()" class="form-control">
+                        <option textContent="Disco">Disco</option>
+                        <option value="Libertad">Libertad</option>
+                        <option value="Makro">Makro</option>
+                    </select></h4>
+
+            </span>
+            <span class="datosCompra">
+                <p>Tasa Dolar Blue: <span id="tasaDolar" value=""></span></p>
+                <p>Tasa Dolar Oficial: <span id="tasaDolarOficial" value=""></span></p>
+            </span>
+
         </div>
-    </nav>
-    <!-- Fin Navbar -->
 
-    <!-- Inicio Lista de Compras -->
-    <div class="conteiner">
-        <h1>OferList</h1>
-        <span class="datosCompra">
-            <p>Fecha de Compra:</p>
-            <input type="date" name="fechaCompra" id="fechaDeCompra" value="">
-            <p>Lugar de la Compra:</p>
-            <h4><select name="selectMercado" id="nombreMercado" onchange="lugarCompra()">
-                <option textContent="Disco">Disco</option>
-                <option value="Libertad">Libertad</option>
-                <option value="Makro">Makro</option>                      
-            </select></h4>
-             
-        </span>
-        <span class="datosCompra">
-            <p>Tasa Dolar Blue: <span id="tasaDolar" value=""></span></p>    
-            <p>Tasa Dolar Oficial: <span id="tasaDolarOficial" value=""></span></p>   
-        </span>
-        
-    </div>
+        <!-- Inicio Nuevo Producto -->
 
-    <!-- Inicio Nuevo Producto -->
+        <div class="table-responsive">
+            <table class="table table-responsive">
+                <thead id="headerTitles">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Producto</th>
+                        <th id="mercadoSelected" scope="col">Precio en</th>
+                        <th scope="col">Precio a comparar</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio Total</th>
+                        <th scope="col">Ahorro</th>
+                        <th scope="col">US$ Blue</th>
+                        <th scope="col">US$ Oficial</th>
+                    </tr>
+                </thead>
+                <tbody id="listaCompras">
+                    <tr>
+                        <th scope="row"></th>
+                        <td><input id="nombreArtículo" type="text" class="form-control" value=""></td>
+                        <td><input id="precioArtículo1" type="number" class="form-control precioProducto1" value="">
+                        </td>
+                        <td><input id="precioArtículo2" type="number" class="form-control precioProducto2" value="">
+                        </td>
+                        <td class="cantidad">
+                            <input type="button" value="-" class="btn btn-primary button-"
+                                onclick="disminuirCantidad(this)">
+                            <p id="cantidad" class="cantidad" value="">0</p>
+                            <input type="button" value="+" class="btn btn-primary button+"
+                                onclick="aumentarCantidad(this)">
+                        </td>
+                        <td id="precioTotal" class="precioTotal" value="">0.00</td>
+                        <td id="ahorro" type="number" class="ahorro" value="">0.00</td>
+                        <td id="precioDolares" type="number" class="precioDolar" value="">0.00</td>
+                        <td id="precioDolarOficial" type="number" class="precioDolarOficial" value="">0.00</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Totales</th>
+                        <th id="totalCantidad" value="">0</th>
+                        <th id="totalPrecioTotal" value="">0.00</th>
+                        <th id="totalAhorro" value="">0.00</th>
+                        <th id="totalPrecioDolares" value="">0.00</th>
+                        <th id="totalPrecioDolarOficial" value="">0.00</th>
+                    </tr>
+                </tfoot>
+            </table>
+            <button onclick="capturar()" class="btn btn-success">Agregar Artículo</button>
+        </div>
 
-    <div class="table-responsive">
-        <table class="table table-responsive">
-            <thead id="headerTitles">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Producto</th>
-                    <th id="mercadoSelected" scope="col">Precio en </th>
-                    <th scope="col">Precio a comparar</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Precio Total</th>
-                    <th scope="col">Ahorro</th>
-                    <th scope="col">Precio al US$ Blue</th>
-                    <th scope="col">Precio al US$ Oficial</th>
-                </tr>                
-            </thead>
-            <tbody id="listaCompras">
-                <tr>
-                    <th scope="row"></th>
-                    <td><input id="nombreArtículo" type="text" value=""></td>
-                    <td><input id="precioArtículo1" type="number" class="precioProducto1" value=""></td>
-                    <td><input id="precioArtículo2" type="number" class="precioProducto2" value=""></td>                    
-                    <td class="cantidad">
-                        <input type="button" value="-" class="button-" onclick="disminuirCantidad(this)">
-                        <p id="cantidad" class="cantidad" value="">0</p>
-                        <input type="button" value="+" class="button+" onclick="aumentarCantidad(this)">
-                    </td>
-                    <td id="precioTotal" class="precioTotal" value="">0.00</td>
-                    <td id="ahorro" type="number" class="ahorro" value="">0.00</td>
-                    <td id="precioDolares" type="number" class="precioDolar" value="">0.00</td>
-                    <td id="precioDolarOficial" type="number" class="precioDolarOficial" value="">0.00</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Total</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th id="totalCantidad" value="">0</th>
-                    <th id="totalPrecioTotal" value="">0.00</th>
-                    <th id="totalAhorro" value="">0.00</th>
-                    <th id="totalPrecioDolares" value="">0.00</th>
-                    <th id="totalPrecioDolarOficial" value="">0.00</th>
-                </tr>
-            </tfoot>        
-        </table>
-        <button onclick="capturar()">Agregar Artículo</button>            
-    </div>
-    <div>    
-    </div>
+        <!-- Fin Nuevo Producto -->
+        <div class="form-group">
+            <label for="campoBusqueda" class="tituloBusqueda">Buscar Producto:</label>
+            <input type="text" class="form-control" id="campoBusqueda" placeholder="Ingrese el nombre del producto"
+                onkeyup="filtrarProductos()">
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Producto</th>
+                        <th id="mercadoSelected2" scope="col">Precio en </th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio Total</th>
+                        <th scope="col">Ahorro</th>
+                        <th scope="col">US$ Blue</th>
+                        <th scope="col">US$ Oficial</th>
+                    </tr>
 
-    <!-- Fin Nuevo Producto -->
-    <div class="form-group">
-        <label for="campoBusqueda" class="tituloBusqueda">Buscar Producto:</label>
-        <input type="text" class="form-control" id="campoBusqueda" placeholder="Ingrese el nombre del producto" onkeyup="filtrarProductos()">
-    </div>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Producto</th>
-                    <th id="mercadoSelected2" scope="col">Precio en </th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Precio Total</th>
-                    <th scope="col">Ahorro</th>
-                    <th scope="col">Precio al US$ Blue</th>
-                    <th scope="col">Precio al US$ Oficial</th>
-                </tr>
-                
-            </thead>
-            <tbody id="listaProductos">
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th id="numProducto" value=""></th>
-                    <th></th>
-                    <th>Totales</th>
-                    <th id="totalCantidadFinal">0</th>
-                    <th id="totalPrecioTotalFinal">0.00</th>
-                    <th id="totalAhorroFinal">0.00</th>
-                    <th id="totalPrecioDolarFinal">0.00</th>
-                    <th id="totalPrecioDolarOficialFinal">0.00</th>
-                </tr>
-            </tfoot>
-        </table>
-        <button onclick="exportarAExcel()">Exportar a Excel</button>
-        <button id="exportarCSV" onclick="exportarACSV()">Exportar a CSV</button>
-        <button id="cargarListaAnterior">Cargar Lista Anterior</button>
-        <button onclick="insertarLista ()">Cargar Productos</button>
-        <button onclick="limpiarLocalStorage()">Limpiar Lista</button>
-    </div>
-    <!-- Fin Lista de Compras -->
+                </thead>
+                <tbody id="listaProductos">
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th id="numProducto" value=""></th>
+                        <th></th>
+                        <th>Totales</th>
+                        <th id="totalCantidadFinal">0</th>
+                        <th id="totalPrecioTotalFinal">0.00</th>
+                        <th id="totalAhorroFinal">0.00</th>
+                        <th id="totalPrecioDolarFinal">0.00</th>
+                        <th id="totalPrecioDolarOficialFinal">0.00</th>
+                    </tr>
+                </tfoot>
+            </table>
+            <button onclick="exportarAExcel()" class="btn btn-success">Exportar a Excel</button>
+            <button id="exportarCSV" onclick="exportarACSV()" class="btn btn-primary">Exportar a CSV</button>
+            <button id="cargarListaAnterior" class="btn btn-secondary">Cargar Lista Anterior</button>
+            <button onclick="insertarLista ()" class="btn btn-warning">Cargar Productos</button>
+            <button onclick="limpiarLocalStorage()" class="btn btn-danger">Limpiar Lista</button>
+        </div>
+        <!-- Fin Lista de Compras -->
     </div>
 
     <!-- Scripts -->
