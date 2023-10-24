@@ -89,10 +89,10 @@
                             <input type="button" value="+" class="btn btn-primary button+"
                                 onclick="aumentarCantidad(this)">
                         </td>
-                        <td id="precioTotal" class="precioTotal" value="">0.00</td>
-                        <td id="ahorro" type="number" class="ahorro" value="">0.00</td>
-                        <td id="precioDolares" type="number" class="precioDolar" value="">0.00</td>
-                        <td id="precioDolarOficial" type="number" class="precioDolarOficial" value="">0.00</td>
+                        <td id="precioTotal" class="precioTotal" value="">$0.00</td>
+                        <td id="ahorro" type="number" class="ahorro" value="">$0.00</td>
+                        <td id="precioDolares" type="number" class="precioDolar" value="">US$0.00</td>
+                        <td id="precioDolarOficial" type="number" class="precioDolarOficial" value="">US$0.00</td>
                     </tr>
                 </tbody>
                 <tfoot>
@@ -102,10 +102,10 @@
                         <th></th>
                         <th>Totales</th>
                         <th id="totalCantidad" value="">0</th>
-                        <th id="totalPrecioTotal" value="">0.00</th>
-                        <th id="totalAhorro" value="">0.00</th>
-                        <th id="totalPrecioDolares" value="">0.00</th>
-                        <th id="totalPrecioDolarOficial" value="">0.00</th>
+                        <th id="totalPrecioTotal" value="">$0.00</th>
+                        <th id="totalAhorro" value="">$0.00</th>
+                        <th id="totalPrecioDolares" value="">US$0.00</th>
+                        <th id="totalPrecioDolarOficial" value="">US$0.00</th>
                     </tr>
                 </tfoot>
             </table>
@@ -141,10 +141,10 @@
                         <th></th>
                         <th>Totales</th>
                         <th id="totalCantidadFinal">0</th>
-                        <th id="totalPrecioTotalFinal">0.00</th>
-                        <th id="totalAhorroFinal">0.00</th>
-                        <th id="totalPrecioDolarFinal">0.00</th>
-                        <th id="totalPrecioDolarOficialFinal">0.00</th>
+                        <th id="totalPrecioTotalFinal">$0.00</th>
+                        <th id="totalAhorroFinal">$0.00</th>
+                        <th id="totalPrecioDolarFinal">US$0.00</th>
+                        <th id="totalPrecioDolarOficialFinal">US$0.00</th>
                     </tr>
                 </tfoot>
             </table>
@@ -152,7 +152,7 @@
             <button onclick="exportarAExcel()" class="btn btn-success">Exportar a Excel</button>
             <button id="exportarCSV" onclick="exportarACSV()" class="btn btn-primary">Exportar a CSV</button>
             <button id="cargarListaAnterior" class="btn btn-secondary">Cargar Lista Anterior</button>
-            <button onclick="insertarLista ()" class="btn btn-warning">Cargar Productos</button>
+            <button onclick="insertarLista()" class="btn btn-warning">Artículos Pre-Cargados</button>
             <button onclick="limpiarLocalStorage()" class="btn btn-danger">Limpiar Lista</button>
         </div>
         <!-- Fin Lista de Compras -->

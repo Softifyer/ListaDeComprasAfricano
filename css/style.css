@@ -129,3 +129,10 @@ form .d-flex {
         width: 100%;
     }
 }
+
+#cantidad {
+    display: inline-flex;
+    width: 40px;
+    margin: 0;
+    justify-content: center;
+}

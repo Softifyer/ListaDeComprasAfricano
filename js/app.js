@@ -406,33 +406,37 @@ function limpiarLocalStorage() {
     })
 }
 
-const listaArticulosManuales = [
-    {
-        "numero": 1,
-        "nombre": "Arroz",
-        "precio1": 1234,
-        "precio2": 1235,
-        "cantidad": 4,
-        "precioTotal": "$4936.00",
-        "ahorro": "$4.00",
-        "dolar": "4.11",
-        "dolarOficial": "13.39"
-    },
-    {
-        "numero": 2,
-        "nombre": "Fideos",
-        "precio1": 9876,
-        "precio2": 9875,
-        "cantidad": 3,
-        "precioTotal": "$29625.00",
-        "ahorro": "$3.00",
-        "dolar": "24.69",
-        "dolarOficial": "80.37"
-    }
-];
+function insertarLista() {
 
-function insertarLista () {
-    localStorage.setItem('listaArticulos', JSON.stringify(listaArticulosManuales));
+    const urlListaArticulos = './js/listaArticulosManuales.json';
+
+    fetch(urlListaArticulos)
+        .then(response => response.json())
+        .then(data => {
+
+            localStorage.setItem('listaArticulos', JSON.stringify(data));
+            listaArticulos = data;
+            actualizarInterfaz(listaArticulos);
+        })
+        .catch(error => {
+            console.error('Error al cargar el archivo JSON: ' + error);
+        });
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+        });
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Productos cargados correctamente'
+        });
 }
 
 function lugarCompra() {

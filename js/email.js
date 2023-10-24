@@ -10,11 +10,9 @@ document.getElementById('enviarPorEmail').addEventListener('click', async functi
     });
 
     if (email) {
-        
-        // Crear una variable para almacenar el mensaje
+
         let mensaje = '';
 
-        // Recorrer la lista de artículos y construir el mensaje
         listaArticulos.forEach(function(articulo) {
             mensaje += `
                 #: ${articulo.numero}
@@ -25,12 +23,9 @@ document.getElementById('enviarPorEmail').addEventListener('click', async functi
             `;
         });
 
-
-
-        // Configurar los parámetros del correo electrónico
         const emailData = {            
-            to_email: email,  // Dirección de correo electrónico del destinatario
-            message: mensaje  // Cuerpo del correo electrónico
+            to_email: email,
+            message: mensaje
         };
 
         emailjs.send('service_86hx8c5', 'template_cpjaz5r', emailData)
