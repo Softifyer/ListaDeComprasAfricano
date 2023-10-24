@@ -9,7 +9,6 @@ fetch('https://dolarapi.com/v1/dolares')
 
         console.log('Dólar Oficial: ' + dolarOficial.toFixed(2));
         console.log('Dólar Blue: ' + dolarBlue.toFixed(2));
-
         document.getElementById('tasaDolar').textContent = '$' + dolarBlue.toFixed(2);
         document.getElementById('tasaDolarOficial').textContent = '$' + dolarOficial.toFixed(2);
 
@@ -39,10 +38,10 @@ function cargarListaAnterior() {
         console.log('Productos cargados desde el localStorage:', listaArticulos);
 
         actualizarInterfaz(listaArticulos);
-    } else {
+    }else {
         console.log('No se encontraron productos en el localStorage.');
-    }
-}
+    };
+};
 
 function actualizarInterfaz(listaArticulos) {
     const listaProductos = document.getElementById("listaProductos");
@@ -68,7 +67,7 @@ function actualizarInterfaz(listaArticulos) {
 
     actualizarTotalesProductos();
     blanquearTotales();
-}
+};
 
 function capturar() {
     function Articulo(nombre, precio1, precio2, cantidad, precioTotal, ahorro, dolar, dolarOficial) {
@@ -81,7 +80,7 @@ function capturar() {
         this.ahorro = ahorro;
         this.dolar = dolar;
         this.dolarOficial = dolarOficial;
-    }
+    };
 
     const nombreCapturar = document.getElementById('nombreArtículo').value;
             const precio1Capturar = document.getElementById('precioArtículo1').value;
@@ -96,8 +95,7 @@ function capturar() {
             const nuevoArticulo = new Articulo(nombreCapturar, precio1Capturar, precio2Capturar, cantidadCapturar, precioTotalCapturar, ahorroCapturar, precioProductoDolar, precioProductoDolarOficial);
 
             agregarArticulo(nuevoArticulo);
-}
-
+};
 
 function agregarArticulo(nuevoArticulo) {
     const nombreInput = document.getElementById('nombreArtículo');
@@ -146,9 +144,9 @@ function agregarArticulo(nuevoArticulo) {
         blanquearTotales();
 
         localStorage.setItem('listaArticulos', JSON.stringify(listaArticulos));
-    } else {
+    }else {
         console.log('Error: Los valores ingresados no son válidos.');
-    }
+    };
 
     const Toast = Swal.mixin({
         toast: true,
@@ -166,7 +164,7 @@ function agregarArticulo(nuevoArticulo) {
         icon: 'success',
         title: 'Producto agregado'
     })
-}    
+};  
 
 function eliminarFilaProducto(button) {
     const fila = button.closest('tr');
@@ -181,7 +179,6 @@ function eliminarFilaProducto(button) {
     actualizarNumerosProductos();
 
     localStorage.setItem('listaArticulos', JSON.stringify(listaArticulos));
-
     fila.remove();
     actualizarTotalesProductos();
     actualizarInterfaz(listaArticulos);
@@ -196,13 +193,13 @@ function eliminarFilaProducto(button) {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-    })
+    });
     
     Toast.fire({
         icon: 'error',
         title: 'Producto eliminado'
-    })
-}
+    });
+};
 
 function actualizarNumerosProductos() {
     const numerosProductos = document.querySelectorAll('.numero-producto');
@@ -210,7 +207,7 @@ function actualizarNumerosProductos() {
     numerosProductos.forEach((numero, index) => {
         numero.textContent = index + 1;
     });
-} 
+};
 
 function actualizarTodo() {
     actualizarTotales();
@@ -230,11 +227,11 @@ function actualizarPrecioTotal(fila) {
             const precioTotal = cantidad * precioProducto1;
             fila.querySelector('.precioTotal').textContent = ('$' + precioTotal.toFixed(2));
             actualizarTotales();
-        }                    
-    } else {
-        fila.querySelector('.precioTotal').textContent = '0.00';
-        actualizarTotales();
-    }
+        }
+        }else {
+            fila.querySelector('.precioTotal').textContent = '0.00';
+            actualizarTotales();
+        };
 };
 
 function actualizarAhorro(fila) {
@@ -251,13 +248,13 @@ function actualizarAhorro(fila) {
 
         if (Number.isInteger(ahorro)) {
             fila.querySelector('.ahorro').textContent = '$' + ahorro.toFixed(2);
-        } else {
+        }else {
             fila.querySelector('.ahorro').textContent = '$' + ahorro.toFixed(2);
         }
-    } else {
+    }else {
         fila.querySelector('.ahorro').textContent = '0.00';
-    }
-}
+    };
+};
 
 function aumentarCantidad(button) {
     const fila = button.closest('tr');
@@ -278,7 +275,7 @@ function aumentarCantidad(button) {
     const precioDolarOficialCell = fila.querySelector('.precioDolarOficial');
     const precioDolarOficial = calcularPrecioDolarOficial(precioTotal, dolarOficial);
     precioDolarOficialCell.textContent = 'US$' + precioDolarOficial;
-}
+};
 
 function disminuirCantidad(button) {
     const fila = button.closest('tr');
@@ -290,7 +287,7 @@ function disminuirCantidad(button) {
         actualizarPrecioTotal(fila);
         actualizarAhorro(fila);
         actualizarTotales();
-    }
+    };
 };
 
 function blanquearTotales() {
@@ -301,7 +298,7 @@ function blanquearTotales() {
     document.getElementById('precioDolares').textContent = "0.00";
     document.getElementById('totalPrecioDolarOficial').textContent = "0.00";
     document.getElementById('precioDolarOficial').textContent = "0.00";
-}
+};
 
 function actualizarTotales() {
     const filas = document.querySelectorAll('#listaCompras tr');
@@ -316,15 +313,15 @@ function actualizarTotales() {
 
         if (!isNaN(cantidad)) {
             totalCantidad += cantidad;
-        }
+        };
 
         if (!isNaN(precioTotal)) {
             totalPrecioTotal += precioTotal;
-        }
+        };
 
         if (!isNaN(ahorro)) {
             totalAhorro += ahorro;
-        }
+        };
     });
 
     document.getElementById('totalCantidad').textContent = totalCantidad;
@@ -347,27 +344,24 @@ function actualizarTotalesProductos() {
 
         if (!isNaN(cantidadProducto)) {
             totalCantidadProductos += cantidadProducto;
-        }
+        };
 
         if (!isNaN(precioTotalProducto)) {
             totalPrecioTotalProductos += precioTotalProducto;
-        }
+        };
 
         if (!isNaN(ahorroProducto)) {
             totalAhorroProductos += ahorroProducto;
-        }
+        };
     });
 
     document.getElementById('totalCantidadFinal').textContent = totalCantidadProductos;
     document.getElementById('totalPrecioTotalFinal').textContent = `$${totalPrecioTotalProductos.toFixed(2)}`;
     document.getElementById('totalAhorroFinal').textContent = `$${totalAhorroProductos.toFixed(2)}`;
     document.getElementById('totalPrecioDolarFinal').textContent = 'US$' + (totalPrecioTotalProductos / dolarBlue).toFixed(2);
-    
     document.getElementById('totalPrecioDolarOficialFinal').textContent = 'US$' + (totalPrecioTotalProductos / dolarOficial).toFixed(2);
 
-
-}
-
+};
 
 function filtrarProductos() {
     const campoBusqueda = document.getElementById("campoBusqueda").value.toLowerCase();
@@ -377,9 +371,9 @@ function filtrarProductos() {
         const nombreProducto = fila.querySelector("td:nth-child(2)").textContent.toLowerCase();
         if (nombreProducto.includes(campoBusqueda)) {
             fila.style.display = "table-row";
-        } else {
+        }else {
             fila.style.display = "none";
-        }
+        };
     });
 }; 
 
@@ -404,7 +398,7 @@ function limpiarLocalStorage() {
         icon: 'warning',
         title: 'Has vaciado la lista de productos'
     })
-}
+};
 
 function insertarLista() {
 
@@ -413,7 +407,6 @@ function insertarLista() {
     fetch(urlListaArticulos)
         .then(response => response.json())
         .then(data => {
-
             localStorage.setItem('listaArticulos', JSON.stringify(data));
             listaArticulos = data;
             actualizarInterfaz(listaArticulos);
@@ -437,7 +430,7 @@ function insertarLista() {
             icon: 'success',
             title: 'Productos cargados correctamente'
         });
-}
+};
 
 function lugarCompra() {
     const lugarCompra = document.getElementById('nombreMercado').value;
@@ -445,17 +438,17 @@ function lugarCompra() {
     const mercadoSelected2 = document.getElementById('mercadoSelected2');
     mercadoSelected.textContent = `Precio en ${lugarCompra}`;
     mercadoSelected2.textContent = `Precio en ${lugarCompra}`;
-}
+};
 
 function calcularPrecioDolares(precioTotal, dolarBlue) {
     const precioEnDolares = (precioTotal / dolarBlue).toFixed(2);
     return precioEnDolares;
-}
+};
 
 function calcularPrecioDolarOficial(precioTotal, dolarOficial) {
     const precioEnDolarOficial = (precioTotal / dolarOficial).toFixed(2);
     return precioEnDolarOficial;
-}
+};
 
 function actualizarPrecioTotalDolares() {
     const filasProductos = document.querySelectorAll('#listaProductos tr');
@@ -473,8 +466,8 @@ function actualizarPrecioTotalDolares() {
     const totalPrecioDolaresTh = document.getElementById('totalPrecioDolares');
     const totalPrecioDolarOficialFinalTh = document.getElementById('totalPrecioDolarOficialFinal');
     totalPrecioDolaresTh.textContent = '' + totalPrecioDolares.toFixed(2);
-    totalPrecioDolarOficialFinalTh.textContent = 'US$' + (totalPrecioDolarOficialFinal / dolarOficial).toFixed(2);
-}
+    totalPrecioDolarOficialFinalTh.textContent = 'US$' + (totalPrecioDolarOficialFinal/dolarOficial).toFixed(2);
+};
 
 function exportarAExcel() {
     const nombreArchivo = 'Lista de Articulos.xlsx';
@@ -501,29 +494,29 @@ function exportarAExcel() {
 
     const estiloEncabezado = {
         fill: {
-            fgColor: { rgb: "95B3D7" },
+            fgColor: {rgb:"95B3D7"},
         },
         font: {
             bold: true,
-            color: { rgb: "000000" },
+            color: {rgb:"000000"},
         },
         border: {
-            top: { style: "thin", color: { auto: 1 } },
-            bottom: { style: "thin", color: { auto: 1 } },
-            left: { style: "thin", color: { auto: 1 } },
-            right: { style: "thin", color: { auto: 1 } },
+            top: {style:"thin", color:{auto: 1}},
+            bottom: {style:"thin", color:{auto: 1}},
+            left: {style:"thin", color:{auto: 1}},
+            right: {style:"thin", color:{auto: 1}},
         },
     };
 
     for (let i = 0; i < encabezados.length; i++) {
         const letraColumna = String.fromCharCode(65 + i);
         hoja[letraColumna + '1'].s = estiloEncabezado;
-    }
+    };
 
     XLSX.utils.book_append_sheet(libro, hoja, "ListaArticulos");
 
     XLSX.writeFile(libro, nombreArchivo);
-}
+};
 
 function exportarACSV() {
     const nombreArchivo = 'ListaDeArticulos.csv';
@@ -540,4 +533,4 @@ function exportarACSV() {
     enlace.download = nombreArchivo;
 
     enlace.click();
-}
+};

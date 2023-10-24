@@ -1,7 +1,7 @@
 emailjs.init("u_R8TRNg4BCGayQ3_");
 
 document.getElementById('enviarPorEmail').addEventListener('click', async function() {
-    const { value: email } = await Swal.fire({
+    const {value: email} = await Swal.fire({
         title: 'Ingrese su dirección de correo:',
         input: 'email',
         inputLabel: 'Correo electrónico',
@@ -48,5 +48,5 @@ document.getElementById('enviarPorEmail').addEventListener('click', async functi
                 })
                 console.log('No enviado', error);
             });
-    }
+    };
 });
