@@ -117,13 +117,13 @@ form .d-flex {
 @media (max-width: 768px) {
     .datosCompra {
         flex-direction: column;
+        display: block;
     }
 
     .datosCompra input,
     .datosCompra select {
-        margin: 20px 0;
+        margin: 50px 0;
     }
-
 
     #campoBusqueda {
         width: 100%;

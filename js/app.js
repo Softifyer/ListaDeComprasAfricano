@@ -1,4 +1,3 @@
-// Creo un array vacío para listaArticulos
 let listaArticulos = [];
 let numeroNuevoProducto = 1;
 
@@ -8,18 +7,14 @@ fetch('https://dolarapi.com/v1/dolares')
         dolarOficial = data[0].venta;
         dolarBlue = data[1].venta;
 
-        // Ahora puedes utilizar dolarOficial y dolarBlue en tu aplicación
         console.log('Dólar Oficial: ' + dolarOficial.toFixed(2));
         console.log('Dólar Blue: ' + dolarBlue.toFixed(2));
 
         document.getElementById('tasaDolar').textContent = '$' + dolarBlue.toFixed(2);
         document.getElementById('tasaDolarOficial').textContent = '$' + dolarOficial.toFixed(2);
 
-        // Actualiza el contenido del elemento con el valor del dólar blue
         actualizarPrecioTotalDolares();
 
-        // Llama a la función para actualizar el total en dólares
-        actualizarPrecioTotalDolares();
     })
     .catch(error => {
         console.error('Error al obtener datos de la API: ' + error);
@@ -170,15 +165,15 @@ function agregarArticulo(nuevoArticulo) {
         timer: 1200,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-      })
-      
-      Toast.fire({
+    })
+    
+    Toast.fire({
         icon: 'success',
         title: 'Producto agregado'
-      })
+    })
 }    
 
 function eliminarFilaProducto(button) {
@@ -206,15 +201,15 @@ function eliminarFilaProducto(button) {
         timer: 1200,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-      })
-      
-      Toast.fire({
+    })
+    
+    Toast.fire({
         icon: 'error',
         title: 'Producto eliminado'
-      })
+    })
 }
 
 function actualizarNumerosProductos() {
@@ -279,20 +274,18 @@ function aumentarCantidad(button) {
     cantidad++;
     cantidadElement.textContent = cantidad;
 
-    // Actualizar precio total y ahorro
     actualizarPrecioTotal(fila);
     actualizarAhorro(fila);
     actualizarTotales();
 
-     // Calcular y actualizar el precio en dólares
-     const precioTotal = parseFloat(fila.querySelector('.precioTotal').textContent.replace('$', ''));
-     const precioDolaresCell = fila.querySelector('.precioDolar');
-     const precioDolares = calcularPrecioDolares(precioTotal, dolarBlue);
-     precioDolaresCell.textContent = 'US$' + precioDolares;
+    const precioTotal = parseFloat(fila.querySelector('.precioTotal').textContent.replace('$', ''));
+    const precioDolaresCell = fila.querySelector('.precioDolar');
+    const precioDolares = calcularPrecioDolares(precioTotal, dolarBlue);
+    precioDolaresCell.textContent = 'US$' + precioDolares;
 
-     const precioDolarOficialCell = fila.querySelector('.precioDolarOficial');
-     const precioDolarOficial = calcularPrecioDolarOficial(precioTotal, dolarOficial);
-     precioDolarOficialCell.textContent = 'US$' + precioDolarOficial;
+    const precioDolarOficialCell = fila.querySelector('.precioDolarOficial');
+    const precioDolarOficial = calcularPrecioDolarOficial(precioTotal, dolarOficial);
+    precioDolarOficialCell.textContent = 'US$' + precioDolarOficial;
 }
 
 function disminuirCantidad(button) {
@@ -342,7 +335,6 @@ function actualizarTotales() {
         }
     });
 
-    // Actualizar los valores en la fila de totales
     document.getElementById('totalCantidad').textContent = totalCantidad;
     document.getElementById('totalPrecioTotal').textContent = '$' + totalPrecioTotal.toFixed(2); 
     document.getElementById('totalAhorro').textContent = '$' + totalAhorro.toFixed(2); 
@@ -374,13 +366,11 @@ function actualizarTotalesProductos() {
         }
     });
 
-    // Actualiza los valores en la fila de totales de listaProductos
     document.getElementById('totalCantidadFinal').textContent = totalCantidadProductos;
     document.getElementById('totalPrecioTotalFinal').textContent = `$${totalPrecioTotalProductos.toFixed(2)}`;
     document.getElementById('totalAhorroFinal').textContent = `$${totalAhorroProductos.toFixed(2)}`;
     document.getElementById('totalPrecioDolarFinal').textContent = 'US$' + (totalPrecioTotalProductos / dolarBlue).toFixed(2);
     
-    // Actualiza el valor en el elemento con id "totalPrecioDolarOficial"
     document.getElementById('totalPrecioDolarOficialFinal').textContent = 'US$' + (totalPrecioTotalProductos / dolarOficial).toFixed(2);
 
 
@@ -413,15 +403,15 @@ function limpiarLocalStorage() {
         timer: 1500,
         timerProgressBar: true,
         didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-      })
-      
-      Toast.fire({
+    })
+    
+    Toast.fire({
         icon: 'warning',
         title: 'Has vaciado la lista de productos'
-      })
+    })
 }
 
 const listaArticulosManuales = [
@@ -484,7 +474,6 @@ function actualizarPrecioTotalDolares() {
         totalPrecioDolarOficialFinal += precioDolarOficial;
     });
 
-    // Actualiza el valor en el th con id "totalPrecioDolares"
     const totalPrecioDolaresTh = document.getElementById('totalPrecioDolares');
     const totalPrecioDolarOficialFinalTh = document.getElementById('totalPrecioDolarOficialFinal');
     totalPrecioDolaresTh.textContent = '' + totalPrecioDolares.toFixed(2);
@@ -496,10 +485,8 @@ function exportarAExcel() {
     const datos = [];
     const encabezados = ["#", "Nombre", "Cantidad", "Precio Total", "Ahorro", "Precio al US$ Blue", "Precio al US$ Oficial"];
     
-    // Agregar los encabezados al arreglo de datos
     datos.push(encabezados);
 
-    // Agregar los datos de listaArticulos al arreglo de datos
     listaArticulos.forEach((articulo) => {
         const fila = [
             articulo.numero,
@@ -513,11 +500,9 @@ function exportarAExcel() {
         datos.push(fila);
     });
 
-    // Crear un libro de trabajo y una hoja de cálculo
     const libro = XLSX.utils.book_new();
     const hoja = XLSX.utils.aoa_to_sheet(datos);
 
-    // Crear un estilo para los encabezados
     const estiloEncabezado = {
         fill: {
             fgColor: { rgb: "95B3D7" },
@@ -534,35 +519,29 @@ function exportarAExcel() {
         },
     };
 
-    // Aplicar el estilo de encabezado a las celdas de encabezado
     for (let i = 0; i < encabezados.length; i++) {
-        const letraColumna = String.fromCharCode(65 + i); // Convierte el índice en letra (A, B, C, ...)
+        const letraColumna = String.fromCharCode(65 + i);
         hoja[letraColumna + '1'].s = estiloEncabezado;
     }
 
-    // Agregar la hoja de cálculo al libro de trabajo
     XLSX.utils.book_append_sheet(libro, hoja, "ListaArticulos");
 
-    // Guardar el archivo Excel
     XLSX.writeFile(libro, nombreArchivo);
 }
 
 function exportarACSV() {
     const nombreArchivo = 'ListaDeArticulos.csv';
 
-    // Crear una cadena con los datos en formato CSV
     let csv = 'Número,Nombre,Cantidad,Precio Total,Ahorro,Precio al US$ Blue,Precio al US$ Oficial\n';
 
     listaArticulos.forEach((articulo) => {
         csv += `${articulo.numero},"${articulo.nombre}",${articulo.cantidad},${articulo.precioTotal},${articulo.ahorro},"${articulo.dolar}","${articulo.dolarOficial}"\n`;
     });
 
-    // Crear un enlace de descarga
     const enlace = document.createElement('a');
     enlace.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
     enlace.target = '_blank';
     enlace.download = nombreArchivo;
 
-    // Simular un clic en el enlace para iniciar la descarga
     enlace.click();
 }
