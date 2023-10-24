@@ -96,14 +96,6 @@ function capturar() {
             const nuevoArticulo = new Articulo(nombreCapturar, precio1Capturar, precio2Capturar, cantidadCapturar, precioTotalCapturar, ahorroCapturar, precioProductoDolar, precioProductoDolarOficial);
 
             agregarArticulo(nuevoArticulo);
-
-            const mensaje = document.getElementById('mensajeProdAgregado');
-            mensaje.textContent = 'Agregado';
-            mensaje.style.display = 'block';
-
-            setTimeout(function () {
-                mensaje.style.display = 'none';
-            }, 3000);
 }
 
 
